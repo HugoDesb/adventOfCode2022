@@ -11,24 +11,16 @@ fun Point.plus(other: Point): Point {
     return Point(this.x + other.x, this.y + other.y)
 }
 
-fun Point.equals(other: Point): Boolean {
-    return this.x == other.x && this.y == other.y;
-}
-
-fun Point.isNull(): Boolean {
-    return this.x == 0 && this.y == 0;
-}
-
 fun Point.moveTo(next: Point): Point = when (next.minus(this)) {
-    Point(-1, 2), Point(-2, 1) -> Point(-1, 1)
+    Point(-1, 2), Point(-2, 1), Point(-2, 2) -> Point(-1, 1)
     Point(0, 2) -> Point(0, 1)
-    Point(1, 2), Point(2, 1) -> Point(1, 1)
+    Point(1, 2), Point(2, 1), Point(2, 2) -> Point(1, 1)
     Point(2, 0) -> Point(1, 0)
-    Point(2, -1), Point(1, -2) -> Point(1, -1)
+    Point(2, -1), Point(1, -2), Point(2, -2)-> Point(1, -1)
     Point(0, -2) -> Point(0, -1)
-    Point(-2, -1), Point(-1, -2) -> Point(-1, -1)
+    Point(-2, -1), Point(-1, -2), Point(-2, -2) -> Point(-1, -1)
     Point(-2, 0) -> Point(-1, 0)
-    else -> Point(0, 0)
+    else -> Point(0,0 )
 }
 
 class KnottedBridge(private val knotsCount: Int = 2) {
@@ -65,18 +57,18 @@ fun main() {
         }
         result
     }
+
     val bridge = KnottedBridge()
     for (motion in motions) {
         bridge.move(motion)
     }
-    println(bridge.knotsHistory[1].size)
+    println("Number of knots the tail went on a rope with two knots: ${bridge.knotsHistory.last().size}")
 
     val knottedBridge = KnottedBridge(10)
     for (motion in motions) {
         knottedBridge.move(motion)
     }
+    println("Number of knots the tail went on a rope with 10 knots: ${knottedBridge.knotsHistory.last().size}")
 
-
-    // Test moveTo
 
 }
